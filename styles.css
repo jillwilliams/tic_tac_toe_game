@@ -25,6 +25,12 @@ body {
 .title h2 {
     text-align: center;
     margin: 30px;
+    color: white;
+}
+
+.prompt h2 {
+    color: black;
+    text-align: center;
 }
 
 /* gameboard div */
@@ -35,6 +41,7 @@ body {
     align-items: center;
     width: 100%;
     height: fit-content;
+    margin-bottom: 50px;
 }
 
 /* the table */
@@ -45,13 +52,12 @@ table {
     text-align: center;
     border-collapse: collapse;
     background-color: antiquewhite;
-
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
 }
 
 /*  */
 table, tr {
     color: antiquewhite;
-    
 }
 
 table, tr, td {
@@ -76,12 +82,31 @@ table, tr, td {
 }
 
 #return-win {
-    color: black;
+    color: white;
     width: 300px;
     height: 50px;
     /* border: 2px solid red; */
     display: block;
     margin: 20px auto;
     text-align: center;
-    
+}
+
+/* play again button */
+#play-again-button {
+    padding: 10px 20px;
+    border: 2px solid black;
+    text-align: center;
+    display: block;
+    margin: 20px auto 50px auto;
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+    cursor: pointer;
+    transition: 0.8s;
+    font-size: 25px;
+    border-radius: 15px;
+}
+
+#play-again-button:hover {
+    transition: 0.8s;
+    background-color: orangered;
+    color: white;
 }

@@ -9,11 +9,11 @@ const squareEightEl = document.getElementById("cell8");
 const squareNineEl = document.getElementById("cell9");
 const tableEl = document.getElementById("table");
 const winReturnEl = document.getElementById("return-win");
+const playAgainButtonEl = document.getElementById("play-again-button")
 
 const choices = ["images/pumpkin_img.png", "images/ghost_img.png"];
 
 const squares = [squareOneEl, squareTwoEl, squareThreeEl, squareFourEl, squareFiveEl, squareSixEl, squareSevenEl, squareEightEl, squareNineEl];
-
 
 
 const handleSquareClick = (e) => {
@@ -47,52 +47,70 @@ const computerPlay = () => {
   // (Optional) You can check for a win condition here!
     const WINNING_COMBINATIONS = [[0,1,2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
 
-    // const WINNING_COMBINATIONS = [[squareOneEl,squareTwoEl, squareThreeEl], [squareFourEl, squareFiveEl, squareSixEl], [squareSevenEl, squareEightEl, squareNineEl], [squareOneEl, squareFourEl, squareSevenEl], [squareTwoEl, squareFiveEl, squareEightEl], [squareThreeEl, squareSixEl, squareNineEl], [squareOneEl, squareFiveEl,squareNineEl], [squareThreeEl, squareFiveEl, squareSevenEl]];
     checkWin();
 };
 
 
 const checkWin = () => {
-    const WINNING_COMBINATIONS = [[0,1,2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+    const WINNING_COMBINATIONS = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+        [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+        [0, 4, 8], [2, 4, 6]            // Diagonals
+    ];
 
     const squaresArray = Array.from(squares);
 
+    // 1. Check for a winner
     const winnerFound = WINNING_COMBINATIONS.some(combination => {
         const [a, b, c] = combination;
-
-        
         const valA = squaresArray[a].innerHTML.trim();
         const valB = squaresArray[b].innerHTML.trim();
         const valC = squaresArray[c].innerHTML.trim();
 
         if (valA !== "" && valA === valB && valA === valC) {
-            console.log("We have a winner");
-            winReturnEl.innerHTML = "We have a winner!";
-            return true;
+        console.log("We have a winner");
+        winReturnEl.innerHTML = "We have a winner!";
+
+        squares.forEach(square => square.removeEventListener("click", handleSquareClick));
+
+        return true;
         }
         return false;
     });
 
     if (winnerFound) return true;
-
     
-
-  // 2. Check for a draw only if no winner was found
+    // 2. Check for a draw
     const isDraw = squaresArray.every(square => square.innerHTML.trim() !== "");
-        if (isDraw) {
+    if (isDraw) {
         console.log("We have a draw");
         winReturnEl.innerHTML = "We have a draw!";
         return true;
-        }
-
+    
+    };
     return false;
-};
+}
 
 
-
+const playAgain = () => {
+    squareOneEl.innerHTML = "";
+    squareTwoEl.innerHTML = "";
+    squareThreeEl.innerHTML = "";
+    squareFourEl.innerHTML = "";
+    squareFiveEl.innerHTML = "";
+    squareSixEl.innerHTML = "";
+    squareSevenEl.innerHTML = "";
+    squareEightEl.innerHTML = "";
+    squareNineEl.innerHTML = "";
+    winReturnEl.innerHTML = "";
+    squares.forEach(square => square.addEventListener("click", handleSquareClick))
+}
 
 
 // Initialize event listeners once at the start of your game setup
 squares.forEach(square => {
     square.addEventListener("click", handleSquareClick);
 });
+
+
+playAgainButtonEl.addEventListener("click", playAgain);
